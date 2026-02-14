@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { cookies } from "next/headers";
 
 export const authOptions = {
     providers: [
@@ -10,6 +11,17 @@ export const authOptions = {
     ],
     session: {
         strategy: "jwt"
+    },
+    cookies: {
+        sessionToken:{
+            name: "arcvantage_session",
+            options: {
+                httpOnly: true,
+                sameSite: "lax",
+                path: "/",
+                secure: process.env.NODE_ENV === "production"
+            }
+        }
     },
     pages: {
         signIn: "/login"
