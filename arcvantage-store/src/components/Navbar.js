@@ -1,54 +1,42 @@
 "use client";
 
 import Link from "next/link";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
-  const { data: session, status } = useSession();
-  const user = session?.user;
+  const { data: session } = useSession();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-black/10">
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="font-semibold tracking-tight">
-          ArcVantage<span className="text-green-700">.</span>
+    <header className="fixed top-0 left-0 w-full z-50 bg-white px-10 py-8">
+      {/* We use a 3-column grid here. 
+         Column 1: Logo (Left)
+         Column 2: Nav (Center)
+         Column 3: Profile (Right)
+      */}
+      <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center font-cinzel tracking-[0.2em] uppercase text-[13px]">
+        
+        {/* LEFT: Logo */}
+        <Link href="/" className="text-lg font-bold">
+          ARCVANTAGE
         </Link>
 
-        <nav className="flex items-center gap-3">
-          <Link href="/shop" className="text-sm text-black/70 hover:text-black">
-            Shop
+        {/* CENTER: Navigation Links */}
+        <nav className="flex justify-center items-center gap-10 text-black">
+          <Link href="/" className="relative group">
+            HOME
+            {/* The Brown Underline from your design */}
+            <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-[#966B4E]"></span>
           </Link>
-
-          {status === "loading" ? (
-            <div className="w-20 h-9 rounded-lg bg-black/5 animate-pulse" />
-          ) : !user ? (
-            <Link
-              href="/login"
-              className="text-sm px-4 py-2 rounded-lg bg-black text-white hover:bg-black/90 transition"
-            >
-              Login
-            </Link>
-          ) : (
-            <div className="flex items-center gap-3">
-              <Link
-                href="/account"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-black/10 hover:bg-black/[0.03] transition"
-              >
-                <div className="w-7 h-7 rounded-full bg-green-600/15 flex items-center justify-center text-green-800 font-semibold">
-                  {(user.name || "U").slice(0, 1).toUpperCase()}
-                </div>
-                <span className="text-sm font-medium">{user.name || "Account"}</span>
-              </Link>
-
-              <button
-                onClick={() => signOut({ callbackUrl: "/" })}
-                className="text-sm px-3 py-2 rounded-lg border border-black/10 hover:bg-black/[0.03] transition"
-              >
-                Logout
-              </button>
-            </div>
-          )}
+          <Link href="/shop" className="hover:text-[#966B4E] transition-colors">SHOP</Link>
+          <Link href="/contact" className="hover:text-[#966B4E] transition-colors">CONTACT US</Link>
         </nav>
+
+        {/* RIGHT: Profile Link */}
+        <div className="flex justify-end">
+          <Link href={session ? "/account" : "/login"} className="hover:text-[#966B4E] transition-colors">
+            PROFILE
+          </Link>
+        </div>
       </div>
     </header>
   );

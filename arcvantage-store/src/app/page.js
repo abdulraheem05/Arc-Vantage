@@ -5,7 +5,7 @@ export default function Home() {
     <div className="min-h-screen bg-white text-black">
       <Navbar />
 
-      <main className="max-w-6xl mx-auto px-6 py-16">
+      <main className="pt-32 max-w-6xl mx-auto px-6 py-16">
         <h1 className="text-4xl font-semibold tracking-tight">
           Kitchen & household essentials<span className="text-green-700">.</span>
         </h1>
