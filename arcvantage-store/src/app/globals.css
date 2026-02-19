@@ -24,3 +24,14 @@ body {
   /* Apply Cinzel as the default font for the whole site */
   font-family: var(--font-cinzel); 
 }
+
+/* Hide model-viewer loading bar / default UI */
+model-viewer::part(default-progress-bar) {
+  display: none;
+}
+
+/* Sometimes it shows a circular poster/play overlay */
+model-viewer::part(default-ar-button),
+model-viewer::part(default-poster) {
+  display: none;
+}

@@ -1,12 +1,13 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react"; // Optional: npm install lucide-react
 import WhyModel3D from "@/components/WhyModel3D";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef  } from "react";
 import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
+ 
   return (
     <div className="min-h-screen bg-white text-black overflow-x-hidden">
       {/* --- HERO SECTION (With Side Images) --- */}
@@ -49,47 +50,43 @@ export default function Home() {
       </section>
 
       {/* --- LATEST ARRIVALS (Bento Grid) --- */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="flex justify-between items-center mb-10">
-          <h2 className="text-3xl font-bold tracking-tight uppercase">Explore</h2>
-          <button className="px-6 py-2 border-2 border-orange-400 text-orange-400 rounded-full text-sm font-bold tracking-widest hover:bg-orange-400 hover:text-white transition-colors">
-            VIEW ALL COLLECTIONS
-          </button>
-        </div>
+      {/* The Grid Container */}
+      
+      <div className="mt-20 rounded-[2.5rem] bg-neutral-50/70 border border-black/5 p-8 md:p-16">
 
-        {/* The Grid Container */}
-        <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[700px]">
+        <div className="flex justify-between items-center mb-10"> <h2 className="text-3xl font-bold tracking-tight uppercase">Explore</h2> <button className="px-6 py-2 border-2 border-orange-400 text-orange-400 rounded-full text-sm font-bold tracking-widest hover:bg-orange-400 hover:text-white transition-colors"> VIEW ALL COLLECTIONS </button> </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-4">
           
-          {/* Big Vertical Card (Seating) */}
-          <ArrivalCard 
-            title="Baking Utensils" 
+          <ArrivalCard
+            title="Baking Utensils"
             img="baking.jpg"
             className="md:col-span-2 md:row-span-2"
+            size="tall"
           />
 
-          {/* Wide Horizontal Card (Tables) */}
-          <ArrivalCard 
-            title="Cookware" 
+          <ArrivalCard
+            title="Cookware"
             img="cook.jpg"
             className="md:col-span-2 md:row-span-1"
+            size="wide"
           />
 
-          {/* Small Square (Lighting) */}
-          <ArrivalCard 
-            title="Tableware" 
+          <ArrivalCard
+            title="Tableware"
             img="table.jpg"
             className="md:col-span-1 md:row-span-1"
+            size="square"
           />
 
-          {/* Small Square (Accessories) */}
-          <ArrivalCard 
-            title="Containers" 
+          <ArrivalCard
+            title="Containers"
             img="cont.jpg"
             className="md:col-span-1 md:row-span-1"
+            size="square"
           />
-
         </div>
-      </section>
+      </div>
+
       {/* --- WHY ARCVANTAGE SECTION --- */}
 <section className="max-w-7xl mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
   {/* Left Side: Content */}
@@ -123,7 +120,7 @@ export default function Home() {
     </motion.div>
 
     {/* Right Side: The Interactive Model */}
-    <div className="relative right-[8%] bottom-[10%] h-[350px] w-full rounded-[3rem] overflow-visible">
+    <div className="relative right-[8%] bottom-[4%] h-[350px] w-full rounded-[3rem] overflow-visible">
       <WhyModel3D/>
     </div>
   </section>
@@ -136,36 +133,65 @@ export default function Home() {
 }
 
 // Reusable Card Component
-function ArrivalCard({ title, img, className }) {
-  return (
-    <motion.div 
-      whileHover="hover"
-      className={`relative rounded-[2rem] overflow-hidden bg-gray-100 group cursor-pointer ${className}`}
-    >
-      <motion.img 
-        variants={{ hover: { scale: 1.05 } }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        src={img} 
-        alt={title} 
-        className="w-full h-full object-cover" 
-      />
-      
-      {/* Bottom Overlay Gradient for Text Readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60" />
+function ArrivalCard({ title, img, className, size = "square" }) {
+  const height =
+    size === "tall"
+      ? "h-[360px] md:h-[560px]"
+      : size === "wide"
+      ? "h-[240px] md:h-[270px]"
+      : "h-[220px] md:h-[270px]";
 
-      {/* Text & Icon */}
-      <div className="absolute bottom-8 left-8 right-8 flex justify-between items-center text-white">
-        <h3 className="text-xl font-bold tracking-widest">{title}</h3>
-        <motion.div 
-          variants={{ hover: { x: 5 } }}
-          className="p-2 bg-white/20 backdrop-blur-md rounded-full"
+  return (
+    <motion.div
+      initial={false}
+      whileHover="hover"
+      className={`relative ${height} rounded-[2rem] overflow-hidden bg-white border border-black/5 shadow-sm group cursor-pointer ${className}`}
+    >
+      {/* Image */}
+      <motion.img
+        variants={{ hover: { scale: 1.04 } }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        src={img}
+        alt={title}
+        className="absolute inset-0 w-full h-full object-cover"
+      />
+
+      {/* Soft overlay to unify all images */}
+      <div className="absolute inset-0 bg-black/10" />
+
+      {/* Bottom gradient for readability (more subtle) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent opacity-80" />
+
+      {/* Content */}
+      <div className="absolute bottom-6 left-6 right-6 flex justify-between items-center text-white">
+        <div>
+          <p className="text-[11px] uppercase tracking-[0.25em] text-white/70">
+            Collection
+          </p>
+          <h3 className="text-lg md:text-xl font-semibold tracking-tight">
+            {title}
+          </h3>
+        </div>
+
+        <motion.div
+          variants={{ hover: { x: 6 } }}
+          className="p-2.5 bg-white/15 backdrop-blur-md rounded-full border border-white/15"
         >
-          <ArrowRight size={20} />
+          <ArrowRight size={18} />
         </motion.div>
       </div>
+
+      {/* Optional: subtle hover glow */}
+      <motion.div
+        variants={{ hover: { opacity: 1 } }}
+        initial={{ opacity: 0 }}
+        transition={{ duration: 0.5 }}
+        className="absolute inset-0 ring-1 ring-white/20"
+      />
     </motion.div>
   );
 }
+
 
 
 
@@ -447,7 +473,9 @@ function AddReviewCTA() {
 
 
 function SiteFooter() {
+  const year = 2026
   return (
+
     <footer className="border-t border-black/20 bg-white">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
@@ -537,7 +565,7 @@ function SiteFooter() {
         {/* Bottom bar */}
         <div className="mt-14 pt-8 border-t border-black/10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} ARCVANTAGE. All rights reserved.
+            © {year} ARCVANTAGE. All rights reserved.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 text-sm">
