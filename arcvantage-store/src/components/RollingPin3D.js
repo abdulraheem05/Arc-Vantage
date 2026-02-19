@@ -1,9 +1,8 @@
 "use client";
-
 import "@google/model-viewer";
 import { useEffect, useRef } from "react";
 
-export default function RollingPin3D() {
+export default function RollingJar3D() {
   const mvRef = useRef(null);
   const wrapRef = useRef(null);
 
@@ -12,35 +11,43 @@ export default function RollingPin3D() {
     const wrap = wrapRef.current;
     if (!mv || !wrap) return;
 
-    // Tune these:
-    const START_ROLL = 50;          // degrees
-    const END_ROLL = 300;          // 2 full rotations (change as you like)
-    const START_Y = 0;             // px
-    const END_Y = 60;             // px move-down then stop
-
-    // Set a stable base pose (table-like)
-    // orientation format behaves like roll/pitch/yaw degrees. :contentReference[oaicite:2]{index=2}
-    const BASE_PITCH = 0;         // often makes it lie down (may need 0/90 depending on model)
-    const BASE_YAW = 90;
-
     let raf = null;
 
+    // --- Tune these ---
+    const TRAVEL_PX = 500;            // how far it travels on page
+    const ROLL_DEG = 720;             // total roll degrees across TRAVEL_PX
+    const BASE = { x: 90, y: 0, z: 0 }; // lays it down (common for “upright” models)
+
+    // If rolling looks wrong, we’ll swap which axis gets the roll:
+    // Option A: roll on Z  (often correct after laying down with x=90)
+    // Option B: roll on X
+    const ROLL_AXIS = "z"; // change to "x" if needed
+
+    const clamp01 = (v) => Math.min(Math.max(v, 0), 1);
+
     const update = () => {
-        const max = document.body.scrollHeight - window.innerHeight;
-        const tRaw = max > 0 ? window.scrollY / max : 0;
+      const rect = wrap.getBoundingClientRect();
+      const vh = window.innerHeight;
 
-        // 1. Make it scroll longer (0.7 = 70% of the page)
-        const threshold = 1.0; 
-        const t = Math.min(Math.max(tRaw, 0), threshold); 
-        const p = t / threshold; 
+      // when wrapper enters viewport bottom → start
+      const startTrigger = vh * 0.9;
+      const endTrigger = -TRAVEL_PX;
 
-        const roll = START_ROLL + (END_ROLL - START_ROLL) * p;
-        const y = START_Y + (END_Y - START_Y) * p;
-      // Apply rolling rotation (roll axis) while keeping pitch/yaw fixed
-        mv.orientation = `${roll}deg ${BASE_PITCH}deg ${BASE_YAW}deg`;
+      let p = (rect.top - startTrigger) / (endTrigger - startTrigger);
+      p = clamp01(p);
 
-      // Move down the page while rolling; then it stays put
-        wrap.style.transform = `translateY(${y}px)`;
+      const yMove = p * TRAVEL_PX;
+      const roll = p * ROLL_DEG;
+
+      // apply scroll movement
+      mv.style.transform = `translateY(${yMove}px)`;
+
+      // apply orientation (base + rolling axis)
+      let x = BASE.x, y = BASE.y, z = BASE.z;
+      if (ROLL_AXIS === "z") z = BASE.z + roll;
+      if (ROLL_AXIS === "x") x = BASE.x + roll;
+
+      mv.orientation = `${x}deg ${y}deg ${z}deg`;
     };
 
     const onScroll = () => {
@@ -48,8 +55,9 @@ export default function RollingPin3D() {
       raf = requestAnimationFrame(update);
     };
 
-    update();
     window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+
     return () => {
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
@@ -59,24 +67,31 @@ export default function RollingPin3D() {
   return (
     <div
       ref={wrapRef}
-      className="w-full flex justify-center will-change-transform"
+      className="w-full flex justify-center py-20 pointer-events-none"
+      style={{ height: "900px" }}
     >
       <model-viewer
         ref={mvRef}
-        src="/models/wooden_rolling_pin.glb"
-        // Lift the camera to 75 degrees so we see the 'top' of the pin
-        camera-orbit="0deg 75deg 2.5m" 
+        src="/models/glass_jar_with_wooden_cover.glb"
+        // ✅ more like your screenshot
+        camera-orbit="0deg 0deg auto"
         field-of-view="45deg"
-        // Keep orientation consistent with your starting state
-        orientation="90deg 90deg 0deg"
-        shadow-intensity="1"
+        shadow-intensity="1.2"
+        shadow-softness="1"
+
+        // ✅ make it smaller (pick ONE method below)
+        // Method 1 (recommended): scale the model
+        scale="0.6 0.6 0.6"
+
+        // Method 2 (optional): limit screen size
         style={{
-            width: "600px",
-            height: "300px",
-            background: "transparent",
-            pointerEvents: "none",
+          width: "900px",
+          height: "420px",
+          maxWidth: "100%",
+          background: "transparent",
+          willChange: "transform",
         }}
-        />
+      />
     </div>
   );
 }
