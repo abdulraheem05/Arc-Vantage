@@ -2,40 +2,161 @@
 
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { usePathname } from "next/navigation";
+import { Search, Heart, ShoppingBag, User } from "lucide-react";
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const pathname = usePathname();
+
+  const isActive = (href) => pathname === href;
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white px-10 py-8">
-      {/* We use a 3-column grid here. 
-         Column 1: Logo (Left)
-         Column 2: Nav (Center)
-         Column 3: Profile (Right)
-      */}
+    <header className="fixed top-0 left-0 w-full z-50 bg-white px-10 py-7">
       <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center font-cinzel tracking-[0.2em] uppercase text-[13px]">
-        
+
         {/* LEFT: Logo */}
         <Link href="/" className="text-lg font-bold">
           ARCVANTAGE
         </Link>
 
-        {/* CENTER: Navigation Links */}
+        {/* CENTER NAV */}
         <nav className="flex justify-center items-center gap-10 text-black">
-          <Link href="/" className="relative group">
+
+          {/* HOME */}
+          <Link href="/" className="relative hover:text-[#966B4E] transition-colors">
             HOME
-            {/* The Brown Underline from your design */}
-            <span className="absolute -bottom-1 left-0 w-full h-[1px] bg-[#966B4E]"></span>
+            <span
+            className={`absolute -bottom-1 left-0 h-[1px] bg-[#966B4E] transition-all duration-300 ${
+              isActive("/") ? "w-full" : "w-0 group-hover:w-full"
+            }`}
+  />
           </Link>
-          <Link href="/shop" className="hover:text-[#966B4E] transition-colors">SHOP</Link>
-          <Link href="/contact" className="hover:text-[#966B4E] transition-colors">CONTACT US</Link>
+
+          {/* SHOP DROPDOWN */}
+          <div className="relative group">
+            <Link href="/shop" className="relative group hover:text-[#966B4E] transition-colors">
+              SHOP
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 
+                   transition-all duration-300 
+                   group-hover:w-full" />
+            </Link>
+
+            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[360px]
+                opacity-0 pointer-events-none translate-y-2
+                group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
+                transition-all duration-200 z-[60]">   
+            {/* hover bridge */}
+            <div className="absolute -top-3 left-0 w-full h-3" />
+
+            <div className="bg-white border border-black/10 rounded-xl shadow-lg overflow-hidden">
+              <Link href="/shop?category=baking"
+                className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                          hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+                Baking Utensils
+              </Link>
+              <div className="h-px bg-black/10" />
+
+              <Link href="/shop?category=cookware" className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+                Cookware
+              </Link>
+              <div className="h-px bg-black/10" />
+
+              <Link href="/shop?category=tableware" className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+                Tableware
+              </Link>
+              <div className="h-px bg-black/10" />
+
+              <Link href="/shop?category=containers" className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+                Containers
+              </Link>
+            </div>
+          </div>
+          </div>
+
+          {/* COLLECTIONS DROPDOWN */}
+          <div className="relative group">
+            <Link href="/collections" className="relative group hover:text-[#966B4E] transition-colors">
+              COLLECTIONS
+              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 
+                   transition-all duration-300 
+                   group-hover:w-full" />
+            </Link>
+
+            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[360px] z-[80]
+                opacity-0 pointer-events-none translate-y-2
+                group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
+                transition-all duration-200">
+              <div className="absolute -top-3 left-0 w-full h-3" />
+              <div className="bg-white border border-black/10 rounded-xl shadow-lg overflow-hidden">
+                
+                <Link
+                  href="/collections/wood"
+                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
+                >
+                  Wood
+                </Link>
+                <div className="h-px bg-black/10" />
+
+                <Link
+                  href="/collections/glass"
+                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
+                >
+                  Glass
+                </Link>
+                <div className="h-px bg-black/10" />
+
+                <Link
+                  href="/collections/ceramic"
+                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
+                >
+                  Ceramic
+                </Link>
+                <div className="h-px bg-black/10" />
+
+                <Link
+                  href="/collections/steel"
+                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
+                >
+                  Steel
+                </Link>
+                <div className="h-px bg-black/10" />
+              </div>
+            </div>
+          </div>
+
+          {/* NEW */}
+          <Link href="/new" className="relative group hover:text-[#966B4E] transition-colors">
+            NEW
+            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 
+                   transition-all duration-300 
+                   group-hover:w-full" />
+          </Link>
         </nav>
 
-        {/* RIGHT: Profile Link */}
-        <div className="flex justify-end">
-          <Link href={session ? "/account" : "/login"} className="hover:text-[#966B4E] transition-colors">
-            PROFILE
+        {/* RIGHT ICONS */}
+        <div className="flex justify-end items-center gap-6 text-black">
+
+          <Link href="/search" className="hover:text-[#966B4E]">
+            <Search size={18} strokeWidth={1.5} />
           </Link>
+
+          <Link href="/wishlist" className="hover:text-[#966B4E]">
+            <Heart size={18} strokeWidth={1.5} />
+          </Link>
+
+          <Link href="/cart" className="hover:text-[#966B4E]">
+            <ShoppingBag size={18} strokeWidth={1.5} />
+          </Link>
+
+          <Link href={session ? "/account" : "/login"} className="hover:text-[#966B4E]">
+            <User size={18} strokeWidth={1.5} />
+          </Link>
+
         </div>
       </div>
     </header>
