@@ -2,7 +2,7 @@
 
 export default function AddReviewCTA() {
   return (
-    <section className="max-w-7xl mx-auto px-6 pb-20">
+    <section className="max-w-[1400px] mx-auto px-6 pb-20">
       <div className="rounded-[2.5rem] border border-black/10 bg-white p-8 md:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         <div>
           <h3 className="font-display text-2xl font-semibold tracking-tight text-slate-900">

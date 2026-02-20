@@ -4,7 +4,7 @@ import WhyModel3D from "@/components/WhyModel3D";
 
 export default function WhySection() {
   return (
-    <section className="max-w-7xl mx-auto px-6 py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section className="max-w-[1400px] mx-auto px-10 py-32 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
       <motion.div
         initial={{ opacity: 0, x: -50 }}
@@ -12,12 +12,12 @@ export default function WhySection() {
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
       >
-        <h4 className="text-green-700 font-bold tracking-[0.2em] uppercase text-xs mb-4">
+        <h4 className="text-[#966B4E] font-bold tracking-[0.2em] uppercase text-xs mb-4">
           Our Philosophy
         </h4>
 
         <h2 className="font-display text-4xl md:text-5xl font-semibold tracking-tight mb-8">
-          Why Arc Vantage?
+          Why ArcVantage?
         </h2>
 
         <div className="space-y-6 text-gray-600 text-lg leading-relaxed max-w-lg">

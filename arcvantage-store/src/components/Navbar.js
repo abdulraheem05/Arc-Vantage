@@ -34,7 +34,7 @@ export default function Navbar() {
           </Link>
 
           {/* SHOP DROPDOWN */}
-          <div className="relative group">
+          <div className="justify-items relative group">
             <Link href="/shop" className="relative group hover:text-[#966B4E] transition-colors">
               SHOP
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 
@@ -42,7 +42,7 @@ export default function Navbar() {
                    group-hover:w-full" />
             </Link>
 
-            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[360px]
+            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[230px]
                 opacity-0 pointer-events-none translate-y-2
                 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
                 transition-all duration-200 z-[60]">   
@@ -50,24 +50,22 @@ export default function Navbar() {
             <div className="absolute -top-3 left-0 w-full h-3" />
 
             <div className="bg-white border border-black/10 rounded-xl shadow-lg overflow-hidden">
-              <Link href="/shop?category=baking"
-                className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
-                          hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+              <Link href="/shop?category=baking" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
                 Baking Utensils
               </Link>
               <div className="h-px bg-black/10" />
 
-              <Link href="/shop?category=cookware" className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+              <Link href="/shop?category=cookware" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
                 Cookware
               </Link>
               <div className="h-px bg-black/10" />
 
-              <Link href="/shop?category=tableware" className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+              <Link href="/shop?category=tableware" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
                 Tableware
               </Link>
               <div className="h-px bg-black/10" />
 
-              <Link href="/shop?category=containers" className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
+              <Link href="/shop?category=containers" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
                 Containers
               </Link>
             </div>
@@ -83,7 +81,7 @@ export default function Navbar() {
                    group-hover:w-full" />
             </Link>
 
-            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[360px] z-[80]
+            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[230px] z-[80]
                 opacity-0 pointer-events-none translate-y-2
                 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
                 transition-all duration-200">
@@ -92,7 +90,7 @@ export default function Navbar() {
                 
                 <Link
                   href="/collections/wood"
-                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
                             hover:bg-black/5 hover:text-[#966B4E] transition-colors"
                 >
                   Wood
@@ -101,7 +99,7 @@ export default function Navbar() {
 
                 <Link
                   href="/collections/glass"
-                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
                             hover:bg-black/5 hover:text-[#966B4E] transition-colors"
                 >
                   Glass
@@ -110,7 +108,7 @@ export default function Navbar() {
 
                 <Link
                   href="/collections/ceramic"
-                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
                             hover:bg-black/5 hover:text-[#966B4E] transition-colors"
                 >
                   Ceramic
@@ -119,7 +117,7 @@ export default function Navbar() {
 
                 <Link
                   href="/collections/steel"
-                  className="block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
+                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
                             hover:bg-black/5 hover:text-[#966B4E] transition-colors"
                 >
                   Steel

@@ -37,7 +37,7 @@ export default function HeroSection() {
           Knives, spice bottles, baking items, and minimal home supplies — clean quality, fair price.
         </p>
 
-        <button className="mt-10 font-sans px-8 py-4 bg-black text-white rounded-full font-medium hover:scale-105 transition-transform shadow-lg">
+        <button className="mt-10 font-sans px-8 py-4 bg-black text-white rounded-full font-medium hover:scale-105 hover:bg-[#966B4E] transition-transform shadow-lg">
           Shop now
         </button>
       </div>

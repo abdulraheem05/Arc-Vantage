@@ -61,10 +61,10 @@ export default function CustomerReviews() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-6 py-28">
+    <section className="max-w-[1400px] mx-auto px-6 py-28">
       <div className="flex items-end justify-between gap-6 mb-12">
         <div>
-          <h4 className="text-green-700 font-bold tracking-[0.2em] uppercase text-xs mb-3">
+          <h4 className="text-[#966B4E] font-bold tracking-[0.2em] uppercase text-xs mb-3">
             Customer Love
           </h4>
 
@@ -170,16 +170,7 @@ export default function CustomerReviews() {
           <MiniReview label="Up next" item={reviews[(index + 1) % reviews.length]} />
           <MiniReview label="Then" item={reviews[(index + 2) % reviews.length]} />
 
-          <div className="rounded-[2rem] border border-black/10 bg-neutral-50 p-6 flex-1 flex flex-col justify-between">
-            <div className="text-sm text-gray-600 leading-relaxed">
-              <span className="font-semibold text-slate-900">Tip:</span> Add
-              photos later and this becomes a premium testimonial wall.
-            </div>
-
-            <div className="mt-6 text-xs uppercase tracking-[0.25em] text-gray-400">
-              ARC VANTAGE
-            </div>
-          </div>
+          
         </div>
       </div>
     </section>
