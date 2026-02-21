@@ -151,10 +151,18 @@ export default function Navbar() {
             <ShoppingBag size={18} strokeWidth={1.5} />
           </Link>
 
-          <Link href={session ? "/account" : "/login"} className="hover:text-[#966B4E]">
-            <User size={18} strokeWidth={1.5} />
-          </Link>
-
+          {session ? (
+            <Link href="/account" className="hover:text-[#966B4E]">
+              <User size={18} strokeWidth={1.5} />
+            </Link>
+          ) : (
+            <Link
+              href="/login"
+              className="text-[12px] tracking-[0.18em] font-semibold uppercase hover:text-[#966B4E]"
+            >
+              LOGIN
+            </Link>
+          )}
         </div>
       </div>
     </header>
