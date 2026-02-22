@@ -34,7 +34,7 @@ export default function Navbar() {
           </Link>
 
           {/* SHOP DROPDOWN */}
-          <div className="justify-items relative group">
+          <div className="justify-items py-2 relative group">
             <Link href="/shop" className="relative group hover:text-[#966B4E] transition-colors">
               SHOP
               <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 

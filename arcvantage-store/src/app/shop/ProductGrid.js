@@ -1,14 +1,14 @@
 import Link from "next/link";
 
-async function getProducts(searchParams) {
+async function getProducts(sp) {
   const qs = new URLSearchParams();
 
   // (Later we’ll use these for filtering)
-  if (searchParams?.category) qs.set("category", searchParams.category);
-  if (searchParams?.material) qs.set("material", searchParams.material);
-  if (searchParams?.sort) qs.set("sort", searchParams.sort);
-  if (searchParams?.min) qs.set("min", searchParams.min);
-  if (searchParams?.max) qs.set("max", searchParams.max);
+  if (sp?.category) qs.set("category", sp.category);
+  if (sp?.material) qs.set("material", sp.material);
+  if (sp?.sort) qs.set("sort", sp.sort);
+  if (sp?.min) qs.set("min", sp.min);
+  if (sp?.max) qs.set("max", sp.max);
 
   // Server component fetch → use absolute URL in dev
   const base =
@@ -23,7 +23,8 @@ async function getProducts(searchParams) {
 }
 
 export default async function ProductGrid({ searchParams }) {
-  const products = await getProducts(searchParams);
+  const sp = await searchParams;
+  const products = await getProducts(sp);
 
   return (
     <div>
