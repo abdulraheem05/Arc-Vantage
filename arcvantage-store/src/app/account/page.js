@@ -31,7 +31,7 @@ export default function AccountPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="mt-20 min-h-screen bg-white">
       <Navbar />
       <div className="max-w-6xl mx-auto px-6 py-16">
         <h1 className="text-2xl font-semibold">Account</h1>

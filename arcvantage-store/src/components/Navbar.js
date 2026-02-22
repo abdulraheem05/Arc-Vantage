@@ -21,7 +21,7 @@ export default function Navbar() {
         </Link>
 
         {/* CENTER NAV */}
-        <nav className="flex justify-center items-center gap-10 text-black">
+        <nav className="flex justify-center items-center gap-10 font-medium tracking-[0.10em] text-black">
 
           {/* HOME */}
           <Link href="/" className="relative hover:text-[#966B4E] transition-colors">
