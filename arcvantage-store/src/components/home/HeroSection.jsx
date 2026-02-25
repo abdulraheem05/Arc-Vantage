@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
@@ -37,10 +37,14 @@ export default function HeroSection() {
           Knives, spice bottles, baking items, and minimal home supplies — clean quality, fair price.
         </p>
 
-        <button className="mt-10 font-sans px-8 py-4 bg-black text-white rounded-full font-medium hover:scale-105 hover:bg-[#966B4E] transition-transform shadow-lg">
-          Shop now
-        </button>
+      <Link 
+        href="/shop" 
+        className="mt-10 inline-block px-8 py-4 bg-black text-white rounded-full font-sans font-medium shadow-lg transition-all duration-300 hover:scale-105 hover:bg-[#966B4E]"
+      >
+        Shop now
+      </Link>
+
       </div>
     </section>
   );
-}
+} 

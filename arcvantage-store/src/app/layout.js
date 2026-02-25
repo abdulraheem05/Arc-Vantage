@@ -3,6 +3,7 @@ import { Cinzel, Poppins } from "next/font/google";
 import Providers from "./providers";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
+import MiniCart from "@/components/MiniCart";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
       <body>
         <Providers>
           <Navbar/>
+          <MiniCart />
           {children}
           <SiteFooter/>
         </Providers>

@@ -4,10 +4,15 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { Search, Heart, ShoppingBag, User } from "lucide-react";
+import { useCartStore } from "@/store/useCartStore";
 
 export default function Navbar() {
   const { data: session } = useSession();
   const pathname = usePathname();
+  const cart = useCartStore((state) => state.cart);
+  const openCart = useCartStore((state) => state.openCart);
+  
+  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
 
   const isActive = (href) => pathname === href;
 
@@ -147,9 +152,14 @@ export default function Navbar() {
             <Heart size={18} strokeWidth={1.5} />
           </Link>
 
-          <Link href="/cart" className="hover:text-[#966B4E]">
+          <button onClick={openCart} className="hover:text-[#966B4E] relative">
             <ShoppingBag size={18} strokeWidth={1.5} />
-          </Link>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-black text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </button>
 
           {session ? (
             <Link href="/account" className="hover:text-[#966B4E]">
