@@ -55,14 +55,14 @@ export default async function ProductPage({ params }) {
             {/* STACKED INFORMATION */}
             <div className="space-y-12">
               <section>
-                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-4 text-black/90">Description</h3>
+                <h3 className="text-[13px] font-bold uppercase tracking-[0.1em] mb-2 text-black/90">Description</h3>
                 <p className="text-black/60 leading-relaxed text-[15px]">
                   {product.detailed_description || product.description}
                 </p>
               </section>
 
               <section className="pt-8 border-t border-black/5 text-[14px] text-black/60 space-y-2">
-                <h3 className="text-[11px] font-bold uppercase tracking-[0.2em] mb-4 text-black/90">Shipping & Returns</h3>
+                <h3 className="text-[13px] font-bold uppercase tracking-[0.1em] mb-2 text-black/90">Shipping & Returns</h3>
                 <p>• Delivery within Colombo: 1-3 Business Days</p>
                 <p>• Islandwide Delivery: 3-5 Business Days</p>
                 <p>• 7-day easy return policy for manufacturing defects.</p>

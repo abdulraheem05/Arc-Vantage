@@ -27,12 +27,12 @@ export default function ProductActions({ product }) {
 
       {/* Buttons */}
       <div className="flex items-center gap-3">
-        <button className="flex-[2] h-14 bg-black text-white rounded-xl text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-black/90 transition flex items-center justify-center gap-2">
-          <Zap size={16} fill="white" /> Buy Now
+        <button className="flex-[2] h-14 bg-black text-white rounded-xl text-[12px]  uppercase tracking-[0.2em] hover:bg-black/90 transition flex items-center justify-center gap-2">
+        Buy Now
         </button>
         <button 
           onClick={() => addToCart(product, qty)}
-          className="flex-[2] h-14 border border-black rounded-xl text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-black hover:text-white transition flex items-center justify-center gap-2"
+          className="flex-[2] h-14 border border-black rounded-xl text-[12px] font-bold uppercase tracking-[0.2em] hover:bg-black hover:text-white transition flex items-center justify-center gap-2"
         >
           <ShoppingBag size={16} /> Add to Cart
         </button>

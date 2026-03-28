@@ -17,7 +17,6 @@ export default function Home() {
       <WhySection />
       <CustomerReviews />
       <AddReviewCTA />
-      <SiteFooter />
     </div>
   );
 }
