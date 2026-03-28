@@ -1,11 +1,22 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCartStore } from "@/store/useCartStore";
 import { Zap, ShoppingBag, Heart, Minus, Plus } from "lucide-react";
 
 export default function ProductActions({ product }) {
+  const router = useRouter();
   const [qty, setQty] = useState(1);
+
   const addToCart = useCartStore((state) => state.addToCart);
+  const closeCart = useCartStore((state) => state.closeCart);
+
+  const handleBuyNow = () =>{
+    addToCart(product, qty);
+    closeCart();
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    router.push("/checkout");
+  }
 
   return (
     <div className="space-y-8">
@@ -27,7 +38,9 @@ export default function ProductActions({ product }) {
 
       {/* Buttons */}
       <div className="flex items-center gap-3">
-        <button className="flex-[2] h-14 bg-black text-white rounded-xl text-[12px]  uppercase tracking-[0.2em] hover:bg-black/90 transition flex items-center justify-center gap-2">
+        <button
+        onClick={handleBuyNow}
+        className="flex-[2] h-14 bg-black text-white rounded-xl text-[12px]  uppercase tracking-[0.2em] hover:bg-black/90 transition flex items-center justify-center gap-2">
         Buy Now
         </button>
         <button 
