@@ -36,6 +36,8 @@ export const useCartStore = create(
         });
       },
 
+      clearCart: () => set({ cart: [] }),
+
       removeFromCart: (productId) => 
         set({ cart: get().cart.filter((item) => item.id !== productId) }),
         

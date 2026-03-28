@@ -1,75 +1,99 @@
-  "use client";
-  import { useCartStore } from "@/store/useCartStore";
-  import { ChevronLeft, CreditCard, Truck, ShieldCheck, Loader2 } from "lucide-react";
-  import Link from "next/link";
-  import { useState, useEffect } from "react";
-  import { useSession } from "next-auth/react";
+"use client";
+import { useCartStore } from "@/store/useCartStore";
+import { ChevronLeft, CreditCard, Truck, ShieldCheck, Loader2 } from "lucide-react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
-  export default function CheckoutPage() {
-    const { data: session } = useSession();
-    const { cart, getCartTotal } = useCartStore();
-    const subtotal = getCartTotal();
-    const shipping = 0; 
-    const total = subtotal + shipping;
+export default function CheckoutPage() {
+  const { data: session } = useSession();
+  const router = useRouter();
 
-    const [loading, setLoading] = useState(true);
-    const [paymentMethod, setPaymentMethod] = useState("card");
-    
-    // State for Form Data (Auto-filled from Profile)
-    const [formData, setFormData] = useState({
-      email: "",
-      name: "",
-      phone: "",
-      address: "",
-      city: "",
-      zip: ""
-    });
+  // 1. SELECTORS FIRST (Must be defined before you use them)
+  const cart = useCartStore((state) => state.cart);
+  const getCartTotal = useCartStore((state) => state.getCartTotal);
+  const clearCart = useCartStore((state) => state.clearCart);
 
-    // State for Saved Card (from DB)
-    const [savedCard, setSavedCard] = useState(null);
+  // 2. CALCULATIONS SECOND
+  const subtotal = typeof getCartTotal === 'function' ? getCartTotal() : 0;
+  const shipping = 0; 
+  const total = subtotal + shipping;
 
-    useEffect(() => {
-      const loadProfile = async () => {
-        try {
-          const res = await fetch("/api/user/profile");
-          if (res.ok) {
-            const data = await res.json();
-            setFormData({
-              email: session?.user?.email || "",
-              name: data.name || "",
-              phone: data.phone || "",
-              address: data.delivery_address || "",
-              city: data.city || "",
-              zip: data.postal_code || ""
-            });
+  // 3. STATE THIRD
+  const [loading, setLoading] = useState(true);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("card");
+  const [formData, setFormData] = useState({
+    email: "", name: "", phone: "", address: "", city: "", zip: ""
+  });
+  const [savedCard, setSavedCard] = useState(null);
 
-            // Check if a saved card exists in the DB
-            if (data.card_last4) {
-              setSavedCard({
-                brand: data.card_brand,
-                last4: data.card_last4
-              });
-            }
+  useEffect(() => {
+    const loadProfile = async () => {
+      try {
+        const res = await fetch("/api/user/profile");
+        if (res.ok) {
+          const data = await res.json();
+          setFormData({
+            email: session?.user?.email || "",
+            name: data.name || "",
+            phone: data.phone || "",
+            address: data.delivery_address || "",
+            city: data.city || "",
+            zip: data.postal_code || ""
+          });
+
+          if (data.card_last4) {
+            setSavedCard({ brand: data.card_brand, last4: data.card_last4 });
           }
-        } catch (error) {
-          console.error("Failed to load checkout details:", error);
-        } finally {
-          setLoading(false);
         }
-      };
+      } catch (error) {
+        console.error("Failed to load checkout details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-      if (session) loadProfile();
-    }, [session]);
+    if (session) loadProfile();
+  }, [session]);
 
-    if (cart.length === 0) {
-      return (
-        <div className="min-h-screen flex flex-col items-center justify-center">
-          <h1 className="font-cinzel text-xl mb-4">Your cart is empty</h1>
-          <Link href="/shop" className="underline uppercase tracking-widest text-sm">Back to Shop</Link>
-        </div>
-      );
+  const handlePlaceOrder = async () => {
+    // PREVENT DOUBLE ORDERING: Check if already processing
+    if (isProcessing) return;
+
+    if (!formData.address || !formData.phone || !formData.name) {
+      alert("Please ensure your name, address, and phone number are provided.");
+      return;
     }
 
+    setIsProcessing(true);
+
+    try {
+      const response = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ cart, total, formData, paymentMethod }),
+      });
+
+      if (response.ok) {
+        // SUCCESS: Clear cart and move to success page
+        if (typeof clearCart === 'function') {
+          clearCart();
+        }
+        router.push("/checkout/success");
+      } else {
+        const errorData = await response.json();
+        alert(`Order Failed: ${errorData.error}`);
+        setIsProcessing(false); // Only reset if it failed
+      }
+    } catch (error) {
+      console.error("Checkout Error:", error);
+      alert("A network error occurred. Check your terminal.");
+      setIsProcessing(false);
+    }
+  };
+  // ... (JSX return part follows
     return (
       <div className="min-h-screen bg-[#F9F9F9] pt-32 pb-20">
         <main className="max-w-[1200px] mx-auto px-6">
@@ -215,8 +239,19 @@
                   </div>
                 </div>
 
-                <button className="w-full mt-12 py-6 bg-black text-white rounded-[20px] font-bold uppercase text-[12px] tracking-[0.3em] hover:opacity-90 transition shadow-2xl shadow-black/20 flex items-center justify-center gap-3">
-                  <ShieldCheck size={20} /> Place Order
+                <button
+                  onClick={handlePlaceOrder}
+                  disabled={isProcessing} // CRITICAL: Locks the button during the 9.9s wait
+                  className={`w-full mt-12 py-6 bg-black text-white rounded-[20px] font-bold uppercase text-[12px] tracking-[0.3em] transition shadow-2xl flex items-center justify-center gap-3 ${
+                    isProcessing ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90 shadow-black/20'
+                  }`}
+                >
+                  {isProcessing ? (
+                    <Loader2 size={20} className="animate-spin" />
+                  ) : (
+                    <ShieldCheck size={20} />
+                  )}
+                  {isProcessing ? "Processing Order..." : "Place Order"}
                 </button>
               </div>
             </div>
