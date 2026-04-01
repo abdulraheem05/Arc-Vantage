@@ -107,7 +107,7 @@ export default function CheckoutPage() {
 
               {/* Contact Section */}
               <section className="bg-white p-8 rounded-3xl shadow-sm border border-black/5">
-                <h2 className="text-[14px] font-bold uppercase tracking-[0.2em] mb-6">Contact Information</h2>
+                <h2 className="text-[16px] font-bold uppercase tracking-[0.1em] mb-6">Contact Information</h2>
                 <div className="space-y-4">
                   <input 
                     type="email" 
@@ -127,7 +127,7 @@ export default function CheckoutPage() {
 
               {/* Shipping Section */}
               <section className="bg-white p-8 rounded-3xl shadow-sm border border-black/5">
-                <h2 className="text-[14px] font-bold uppercase tracking-[0.2em] mb-6">Shipping Address</h2>
+                <h2 className="text-[16x] font-bold uppercase tracking-[0.1em] mb-6">Shipping Address</h2>
                 <div className="grid grid-cols-2 gap-4">
                   <input 
                     placeholder="Address" 
@@ -158,7 +158,7 @@ export default function CheckoutPage() {
 
               {/* Payment Section */}
               <section className="bg-white p-8 rounded-3xl shadow-sm border border-black/5">
-                <h2 className="text-[14px] font-bold uppercase tracking-[0.2em] mb-6">Payment Method</h2>
+                <h2 className="text-[16px] font-bold uppercase tracking-[0.1em] mb-6">Payment Method</h2>
                 <div className="space-y-4">
                   <label className={`flex items-center justify-between p-6 rounded-2xl border-2 cursor-pointer transition-all ${paymentMethod === 'card' ? 'border-black bg-black/5 shadow-sm' : 'border-gray-50'}`}>
                     <div className="flex items-center gap-4">
@@ -214,7 +214,7 @@ export default function CheckoutPage() {
                         <img src={item.image_url} className="w-full h-full object-contain mix-blend-multiply" />
                       </div>
                       <div className="flex-1 flex flex-col justify-center">
-                        <p className="text-[11px] font-bold uppercase tracking-[0.15em] leading-tight mb-2">{item.name}</p>
+                        <p className="text-[11px] font-bold uppercase tracking-[0.1em] leading-tight mb-2">{item.name}</p>
                         <p className="text-[11px] text-black/40 font-bold uppercase tracking-widest">Qty: {item.quantity}</p>
                       </div>
                       <div className="flex items-center font-bold text-sm">
@@ -225,7 +225,7 @@ export default function CheckoutPage() {
                 </div>
 
                 <div className="space-y-4 pt-10 border-t border-black/5">
-                  <div className="flex justify-between text-[12px] font-bold uppercase tracking-widest text-black/40">
+                  <div className="flex justify-between text-[12px] font-bold uppercase  text-black/40">
                     <span>Subtotal</span>
                     <span className="text-black">Rs. {subtotal.toLocaleString()}</span>
                   </div>
@@ -234,7 +234,7 @@ export default function CheckoutPage() {
                     <span className="text-green-600">Free</span>
                   </div>
                   <div className="flex justify-between pt-10 border-t border-black/5">
-                    <span className="font-bold text-lg uppercase tracking-[0.2em]">Total</span>
+                    <span className="font-bold text-lg uppercase tracking-[0.1em]">Total</span>
                     <span className="font-bold text-2xl">Rs. {total.toLocaleString()}</span>
                   </div>
                 </div>
@@ -242,7 +242,7 @@ export default function CheckoutPage() {
                 <button
                   onClick={handlePlaceOrder}
                   disabled={isProcessing} // CRITICAL: Locks the button during the 9.9s wait
-                  className={`w-full mt-12 py-6 bg-black text-white rounded-[20px] font-bold uppercase text-[12px] tracking-[0.3em] transition shadow-2xl flex items-center justify-center gap-3 ${
+                  className={`w-full mt-12 py-6 bg-black text-white rounded-[20px] font-bold uppercase text-[15px] tracking-[0.2em] hover:scale-105 hover:bg-[#966B4E] transition shadow-2xl flex items-center justify-center gap-3 ${
                     isProcessing ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90 shadow-black/20'
                   }`}
                 >

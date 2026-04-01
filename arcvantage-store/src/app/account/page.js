@@ -1,14 +1,17 @@
 "use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { User, MapPin, Phone, CreditCard, Plus, Trash2, Edit3, Save, Loader2, CheckCircle, X } from "lucide-react";
+import { User, MapPin, Phone, CreditCard, Plus, Trash2, Edit3, Save, Loader2, CheckCircle, X, MessageSquarePlus, Star, Calendar, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
 
 export default function AccountPage() {
   const { data: session } = useSession();
   const [isEditing, setIsEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [userReviews, setUserReviews] = useState([]);
   
   const [cards, setCards] = useState([{ id: 1, brand: "VISA", last4: "4242" }]);
   const [formData, setFormData] = useState({
@@ -26,6 +29,15 @@ export default function AccountPage() {
         .then(res => res.json())
         .then(data => setFormData(data))
         .catch(err => console.error("Load error:", err));
+
+      fetch("/api/user/orders")
+      .then(res => res.json())
+      .then(data => setOrders(data));
+
+      // Fetch User's Reviews
+      fetch("/api/user/reviews")
+        .then(res => res.json())
+        .then(data => setUserReviews(data));
     }
   }, [session]);
 
@@ -214,48 +226,57 @@ export default function AccountPage() {
                </div>
             </div>
           </div>
-          {/* SAVED PAYMENTS SECTION */}
-          <div className="mt-8 bg-white rounded-[28px] p-8 shadow-sm border border-black/5">
-            <div className="flex items-center justify-between mb-10 pb-4 border-b border-black/5">
-              <div className="flex items-center gap-3">
-                <div className="p-2.5 bg-black text-white rounded-xl shadow-lg shadow-black/20">
-                  <CreditCard size={18} />
-                </div>
-                <h2 className="text-[12px] font-bold uppercase tracking-[0.1em] text-black">Saved Payment Methods</h2>
-              </div>
-              <button className="text-[11px] font-bold text-[#966B4E] uppercase tracking-widest flex items-center gap-2 hover:opacity-70 transition">
-                <Plus size={16} /> Add New Card
-              </button>
-            </div>
-
-            {/* Checking if the user has a tokenized card in the DB */}
-            {!formData.payment_token ? (
-              <div className="p-12 text-center border-2 border-dashed border-black/5 rounded-2xl">
-                <p className="text-[11px] font-bold uppercase text-black/30 tracking-widest">No cards saved yet</p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="p-8 border-2 border-gray-50 rounded-2xl flex items-center justify-between hover:border-black transition-all group cursor-default">
-                  <div className="flex items-center gap-6">
-                    <div className="w-14 h-10 bg-black rounded-lg flex items-center justify-center text-[10px] text-white font-black tracking-tighter uppercase">
-                      {formData.card_brand || "Card"}
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold tracking-[0.3em]">•••• {formData.card_last4 || "4242"}</p>
-                      <p className="text-[10px] text-black/30 font-bold uppercase tracking-widest mt-1">Securely Tokenized</p>
-                    </div>
-                  </div>
-                  <button 
-                    onClick={() => {/* Add delete API logic here later */}} 
-                    className="p-3 text-black/10 hover:text-red-500 hover:bg-red-50 rounded-full transition-all opacity-0 group-hover:opacity-100"
-                  >
-                    <Trash2 size={18} />
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+          
+          
         </div>
+        {/* NAVIGATION HUB */}
+      <div className="flex flex-col gap-6 mt-8">
+        
+        {/* ORDERS NAVIGATION CARD */}
+        <Link href="/account/orders">
+          <motion.div 
+            whileHover={{ scale: 1.01, borderColor: "rgba(0,0,0,0.2)" }}
+            whileTap={{ scale: 0.99 }}
+            className="group bg-white rounded-[24px] p-8 border-2 border-black/5 flex items-center justify-between cursor-pointer transition-all shadow-sm hover:shadow-md"
+          >
+            <div className="flex items-center gap-8">
+              <div className="p-5 bg-black text-white rounded-2xl shadow-lg group-hover:bg-[#966B4E] transition-colors">
+                <Calendar size={32} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h2 className="font-cinzel text-xl font-bold uppercase tracking-[0.2em]">My Orders</h2>
+                <p className="text-[10px] font-bold text-black/30 uppercase tracking-widest mt-1">View your order history and tracking status</p>
+              </div>
+            </div>
+            <div className="text-black/20 group-hover:text-black group-hover:translate-x-2 transition-all">
+              <ExternalLink size={24} />
+            </div>
+          </motion.div>
+        </Link>
+
+        {/* REVIEWS NAVIGATION CARD */}
+        <Link href="/account/reviews">
+          <motion.div 
+            whileHover={{ scale: 1.01, borderColor: "rgba(0,0,0,0.2)" }}
+            whileTap={{ scale: 0.99 }}
+            className="group bg-white rounded-[24px] p-8 border-2 border-black/5 flex items-center justify-between cursor-pointer transition-all shadow-sm hover:shadow-md"
+          >
+            <div className="flex items-center gap-8">
+              <div className="p-5 bg-black text-white rounded-2xl shadow-lg group-hover:bg-[#966B4E] transition-colors">
+                <MessageSquarePlus size={32} strokeWidth={1.5} />
+              </div>
+              <div>
+                <h2 className="font-cinzel text-xl font-bold uppercase tracking-[0.2em]">My Reviews</h2>
+                <p className="text-[10px] font-bold text-black/30 uppercase tracking-widest mt-1">Manage your feedback and ratings</p>
+              </div>
+            </div>
+            <div className="text-black/20 group-hover:text-black group-hover:translate-x-2 transition-all">
+              <ExternalLink size={24} />
+            </div>
+          </motion.div>
+        </Link>
+
+      </div>
       </main>
     </div>
   );
