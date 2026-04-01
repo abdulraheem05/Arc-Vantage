@@ -17,117 +17,55 @@ export default function Navbar() {
   const isActive = (href) => pathname === href;
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white px-10 py-7">
-      <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center font-cinzel tracking-[0.2em] uppercase text-[13px]">
+    /* Added 'shadow-sm' for the slight shadow and increased py slightly for breathing room */
+    <header className="fixed top-0 left-0 w-full z-50 bg-white px-10 py-6 shadow-sm border-b border-black/5">
+      {/* Increased text size to 15px and set font-bold for the whole container */}
+      <div className="max-w-[1400px] mx-auto grid grid-cols-3 items-center font-cinzel tracking-[0.15em] uppercase text-[15px] font-bold">
 
-        {/* LEFT: Logo */}
-        <Link href="/" className="text-lg font-bold">
+        {/* LEFT: Logo - Bumped to text-xl */}
+        <Link href="/" className="text-xl font-black tracking-[0.25em]">
           ARCVANTAGE
         </Link>
 
         {/* CENTER NAV */}
-        <nav className="flex justify-center items-center gap-10 font-medium tracking-[0.10em] text-black">
+        <nav className="flex justify-center items-center gap-10 text-black">
 
           {/* HOME */}
-          <Link href="/" className="relative hover:text-[#966B4E] transition-colors">
+          <Link href="/" className="relative hover:text-[#966B4E] transition-colors group">
             HOME
             <span
-            className={`absolute -bottom-1 left-0 h-[1px] bg-[#966B4E] transition-all duration-300 ${
-              isActive("/") ? "w-full" : "w-0 group-hover:w-full"
-            }`}
-  />
+              className={`absolute -bottom-1 left-0 h-[2px] bg-[#966B4E] transition-all duration-300 ${
+                isActive("/") ? "w-full" : "w-0 group-hover:w-full"
+              }`}
+            />
           </Link>
 
           {/* SHOP DROPDOWN */}
           <div className="justify-items py-2 relative group">
-            <Link href="/shop" className="relative group hover:text-[#966B4E] transition-colors">
+            <Link href="/shop" className="relative hover:text-[#966B4E] transition-colors">
               SHOP
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 
-                   transition-all duration-300 
-                   group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 h-[2px] bg-[#966B4E] transition-all duration-300 ${
+                isActive("/shop") ? "w-full" : "w-0 group-hover:w-full"
+              }`} />
             </Link>
 
-            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[230px]
+            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[250px]
                 opacity-0 pointer-events-none translate-y-2
                 group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
-                transition-all duration-200 z-[60]">   
-            {/* hover bridge */}
-            <div className="absolute -top-3 left-0 w-full h-3" />
+                transition-all duration-300 z-[60]">   
+              
+              <div className="absolute -top-3 left-0 w-full h-4" />
 
-            <div className="bg-white border border-black/10 rounded-xl shadow-lg overflow-hidden">
-              <Link href="/shop?category=baking" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
-                Baking Utensils
-              </Link>
-              <div className="h-px bg-black/10" />
-
-              <Link href="/shop?category=cookware" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
-                Cookware
-              </Link>
-              <div className="h-px bg-black/10" />
-
-              <Link href="/shop?category=tableware" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
-                Tableware
-              </Link>
-              <div className="h-px bg-black/10" />
-
-              <Link href="/shop?category=containers" className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em] hover:bg-black/5 hover:text-[#966B4E] transition-colors">
-                Containers
-              </Link>
-            </div>
-          </div>
-          </div>
-
-          {/* COLLECTIONS DROPDOWN */}
-          <div className="relative group">
-            <Link href="/collections" className="relative group hover:text-[#966B4E] transition-colors">
-              COLLECTIONS
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 
-                   transition-all duration-300 
-                   group-hover:w-full" />
-            </Link>
-
-            <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[230px] z-[80]
-                opacity-0 pointer-events-none translate-y-2
-                group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
-                transition-all duration-200">
-              <div className="absolute -top-3 left-0 w-full h-3" />
-              <div className="bg-white border border-black/10 rounded-xl shadow-lg overflow-hidden">
-                
-                <Link
-                  href="/collections/wood"
-                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
-                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
-                >
-                  Wood
-                </Link>
-                <div className="h-px bg-black/10" />
-
-                <Link
-                  href="/collections/glass"
-                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
-                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
-                >
-                  Glass
-                </Link>
-                <div className="h-px bg-black/10" />
-
-                <Link
-                  href="/collections/ceramic"
-                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
-                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
-                >
-                  Ceramic
-                </Link>
-                <div className="h-px bg-black/10" />
-
-                <Link
-                  href="/collections/steel"
-                  className="text-center block w-full px-6 py-4 text-[14px] font-semibold tracking-[0.08em]
-                            hover:bg-black/5 hover:text-[#966B4E] transition-colors"
-                >
-                  Steel
-                </Link>
-                <div className="h-px bg-black/10" />
+              <div className="bg-white border border-black/10 rounded-xl shadow-xl overflow-hidden">
+                {["Baking Utensils", "Cookware", "Tableware", "Containers"].map((cat) => (
+                  <Link 
+                    key={cat}
+                    href={`/shop?category=${cat.toLowerCase().split(' ')[0]}`} 
+                    className="text-center block w-full px-6 py-4 text-[14px] font-bold tracking-[0.1em] hover:bg-black/5 hover:text-[#966B4E] transition-colors border-b border-black/5 last:border-0"
+                  >
+                    {cat}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
@@ -135,27 +73,24 @@ export default function Navbar() {
           {/* NEW */}
           <Link href="/new" className="relative group hover:text-[#966B4E] transition-colors">
             NEW
-            <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-[#966B4E] 
-                   transition-all duration-300 
-                   group-hover:w-full" />
+            <span className="absolute -bottom-1 left-0 w-0 h-[2px] bg-[#966B4E] transition-all duration-300 group-hover:w-full" />
           </Link>
         </nav>
 
         {/* RIGHT ICONS */}
-        <div className="flex justify-end items-center gap-6 text-black">
-
-          <Link href="/search" className="hover:text-[#966B4E]">
-            <Search size={18} strokeWidth={1.5} />
+        <div className="flex justify-end items-center gap-8 text-black">
+          <Link href="/search" className="hover:text-[#966B4E] transition-transform hover:scale-110">
+            <Search size={20} strokeWidth={2} />
           </Link>
 
-          <Link href="/wishlist" className="hover:text-[#966B4E]">
-            <Heart size={18} strokeWidth={1.5} />
+          <Link href="/wishlist" className="hover:text-[#966B4E] transition-transform hover:scale-110">
+            <Heart size={20} strokeWidth={2} />
           </Link>
 
-          <button onClick={openCart} className="hover:text-[#966B4E] relative">
-            <ShoppingBag size={18} strokeWidth={1.5} />
+          <button onClick={openCart} className="hover:text-[#966B4E] relative transition-transform hover:scale-110">
+            <ShoppingBag size={20} strokeWidth={2} />
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-black text-white text-[8px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-2 -right-2 bg-[#966B4E] text-white text-[9px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-sm">
                 {cartCount}
               </span>
             )}
@@ -163,12 +98,12 @@ export default function Navbar() {
 
           {session ? (
             <Link href="/account" className="hover:text-[#966B4E]">
-              <User size={18} strokeWidth={1.5} />
+              <User size={20} strokeWidth={2} />
             </Link>
           ) : (
             <Link
               href="/login"
-              className="text-[12px] tracking-[0.18em] font-semibold uppercase hover:text-[#966B4E]"
+              className="text-[13px] tracking-[0.18em] font-bold uppercase hover:text-[#966B4E]"
             >
               LOGIN
             </Link>

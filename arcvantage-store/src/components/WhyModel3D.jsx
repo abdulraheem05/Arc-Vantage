@@ -37,7 +37,7 @@ export default function WhyModel3D() {
       environment-image="neutral"
       shadow-intensity="0"
       interaction-prompt="none"
-      style={{ width: "120%", height: "100%", background: "transparent" }}
+      style={{ width: "120%", height: "150%", background: "transparent" }}
     />
   );
 }
