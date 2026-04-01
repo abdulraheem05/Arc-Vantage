@@ -30,8 +30,8 @@ export default function ProductCard({ product, isCenter }) {
           />
 
           {/* Floating Tag */}
-          <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-1 rounded-full shadow-sm">
-            <span className="text-[9px] font-bold tracking-widest text-black uppercase">New</span>
+          <div className="absolute top-6 left-6 bg-[#6BA741] backdrop-blur-md px-4 py-1 rounded-full shadow-sm">
+            <span className="text-[10px] font-bold tracking-widest text-white uppercase">New</span>
           </div>
 
           {/* Slide-up View Button - Only visible on center card hover */}
