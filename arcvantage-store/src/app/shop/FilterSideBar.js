@@ -95,7 +95,7 @@ export default function FilterSidebar() {
         </div>
         <button 
           onClick={() => updateFilter({ min: minPrice, max: maxPrice })}
-          className="w-full mt-3 bg-black text-white py-2.5 text-[11px] font-bold uppercase tracking-widest rounded-lg hover:bg-black/80 transition shadow-sm"
+          className="w-full mt-3 bg-black text-white py-2.5 text-[11px] font-bold uppercase tracking-widest rounded-full hover:bg-black/80 transition shadow-sm"
         >
           Apply Price
         </button>
@@ -104,7 +104,7 @@ export default function FilterSidebar() {
       {/* RESET ALL */}
       <button 
         onClick={() => router.push(pathname)}
-        className="w-full py-3 border border-black/10 text-black/40 text-[11px] font-bold uppercase tracking-[0.2em] hover:border-black hover:text-black transition-all rounded-lg"
+        className="w-full py-3 border border-black/10 text-black/40 text-[11px] font-bold uppercase tracking-[0.2em] hover:border-black hover:text-black transition-all rounded-full"
       >
         Reset Filters
       </button>

@@ -58,7 +58,7 @@ export default async function ProductGrid({ searchParams, title, customProducts 
               <div className="px-5 pb-5">
                 <Link 
                   href={`/product/${p.slug}`}
-                  className="w-full flex justify-center rounded-xl bg-black text-white py-3 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-black/90 transition"
+                  className="w-full flex justify-center rounded-full bg-black text-white py-3 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-black/90 transition"
                 >
                   View Product
                 </Link>

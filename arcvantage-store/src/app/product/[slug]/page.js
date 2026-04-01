@@ -36,7 +36,7 @@ export default async function ProductPage({ params }) {
                   src={product.image_url} 
                   alt={product.name} 
                   // Changed to w-full h-auto to prevent forced stretching
-                  className="w-full h-auto max-h-[600px] object-contain mix-blend-multiply group-hover:scale-101 transition-transform duration-200"
+                  className="w-full h-auto max-h-[700px] object-contain mix-blend-multiply group-hover:scale-101 transition-transform duration-200"
                 />
               </div>
             </div>
