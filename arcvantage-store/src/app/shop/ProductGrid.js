@@ -7,7 +7,8 @@ export default async function ProductGrid({ searchParams, title, customProducts 
   const sp = await searchParams;
   
   // 2. Use products passed from category page, or fetch all if on main shop
-  const products = customProducts || await getProducts(sp);
+  const fetchedProducts = await getProducts(sp);
+  const products = customProducts || fetchedProducts || [];
 
   return (
     <div>

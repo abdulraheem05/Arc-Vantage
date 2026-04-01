@@ -10,49 +10,52 @@ export async function GET(request) {
   const max = searchParams.get("max");
   const sort = searchParams.get("sort");
 
-  let query = `SELECT * FROM products WHERE active = true`;
+  // Use 1=1 as a base so we can safely append "AND" to everything
+  let queryText = `SELECT * FROM products WHERE 1=1`; 
   const values = [];
 
-  // Filtering Logic
   if (category) {
     values.push(category);
-    query += ` AND category = $${values.length}`;
+    queryText += ` AND category = $${values.length}`;
   }
 
   if (material) {
     values.push(material);
-    query += ` AND material = $${values.length}`;
+    queryText += ` AND material = $${values.length}`;
   }
 
-  if (min) {
+  if (min && !isNaN(min)) {
     values.push(parseInt(min));
-    query += ` AND price_lkr >= $${values.length}`;
+    queryText += ` AND price_lkr >= $${values.length}`;
   }
 
-  if (max) {
+  if (max && !isNaN(max)) {
     values.push(parseInt(max));
-    query += ` AND price_lkr <= $${values.length}`;
+    queryText += ` AND price_lkr <= $${values.length}`;
   }
 
   // Sorting Logic
   switch (sort) {
     case "price_asc":
-      query += ` ORDER BY price_lkr ASC`;
+      queryText += ` ORDER BY price_lkr ASC`;
       break;
     case "price_desc":
-      query += ` ORDER BY price_lkr DESC`;
+      queryText += ` ORDER BY price_lkr DESC`;
       break;
     case "oldest":
-      query += ` ORDER BY created_at ASC`;
+      queryText += ` ORDER BY id ASC`; // Using ID as fallback for created_at if not exists
       break;
-    default: // latest
-      query += ` ORDER BY created_at DESC`;
+    default:
+      queryText += ` ORDER BY id DESC`; 
   }
 
-  query += ` LIMIT 50`;
+  queryText += ` LIMIT 50`;
+
+  // Debugging: This will show you exactly what's being sent to PG
+  console.log("EXECUING QUERY:", queryText, "WITH VALUES:", values);
 
   try {
-    const result = await pool.query(query, values);
+    const result = await pool.query(queryText, values);
     return NextResponse.json(result.rows);
   } catch (error) {
     console.error("Database Error:", error);

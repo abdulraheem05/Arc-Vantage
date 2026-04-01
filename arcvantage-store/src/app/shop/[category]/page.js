@@ -4,9 +4,11 @@ import ProductGrid from "../ProductGrid";
 
 export default async function CategoryPage({ params, searchParams }) {
   const { category } = await params;
+  const resolvedSearchParams = await searchParams;
   
   // Format the title (e.g., 'baking' -> 'Baking Collection')
   const displayTitle = category.charAt(0).toUpperCase() + category.slice(1);
+
 
   return (
     <main className="max-w-[1400px] mx-auto px-10 pt-36 pb-16">
@@ -17,7 +19,7 @@ export default async function CategoryPage({ params, searchParams }) {
 
         <section className="col-span-12 lg:col-span-9">
           <ProductGrid 
-            searchParams={{ ...searchParams, category }} 
+            searchParams={{ ...resolvedSearchParams, category }} 
             title={`${displayTitle} Collection`} 
           />
         </section>
