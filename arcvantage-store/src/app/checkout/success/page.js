@@ -36,7 +36,7 @@ export default function SuccessPage() {
         <div className="pt-6 flex flex-col gap-4">
           <Link 
             href="/shop" 
-            className="w-full py-6 bg-black text-white rounded-[24px] font-bold uppercase text-[12px] tracking-[0.3em] hover:opacity-90 transition shadow-xl flex items-center justify-center gap-3"
+            className="w-full py-6 bg-black text-white rounded-[24px] font-bold uppercase text-[12px] tracking-[0.3em] hover:scale-105 hover:bg-[#966B4E] transition shadow-xl flex items-center justify-center gap-3"
           >
             Continue Shopping <ArrowRight size={16} />
           </Link>

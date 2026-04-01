@@ -69,8 +69,30 @@ export async function POST(req) {
       await transporter.sendMail({
         from: `"Arcvantage" <${process.env.EMAIL_USER}>`,
         to: session.user.email,
-        subject: `Order Confirmation - #${orderId}`,
-        html: `<h1>Order Received</h1><p>Total: Rs. ${total}</p>`
+        subject: `Order Confirmation from ArcVantage`,
+        html: `<div style="font-family: 'Helvetica', Arial, sans-serif; max-width: 500px; color: #000; line-height: 1.6;">
+                      <h1 style="font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 20px;">
+                        ArcVantage
+                      </h1>
+                      
+                      <p style="margin-top: 30px;">Thank you for your purchase.</p>
+                      
+                      <p>We have received your order and are currently preparing it for shipment. You will receive a notification as soon as your items are dispatched.</p>
+
+                      <div style="margin: 30px 0; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px;">
+                        <p style="margin: 0; font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.1em;">Amount Paid</p>
+                        <p style="margin: 5px 0 0 0; font-size: 20px; color: #966B4E;">Rs. ${Number(total).toLocaleString()}</p>
+                      </div>
+
+                      <p style="font-size: 13px; color: #666;">
+                        If you have any questions, simply reply to this email.
+                      </p>
+
+                      <div style="margin-top: 50px; font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 0.1em;">
+                        &copy; ${new Date().getFullYear()} ArcVantage Luxury Kitchenware
+                      </div>
+                    </div>
+                  `
       });
       console.log("Email Sent Successfully");
     } catch (mailErr) {
