@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import RelatedProducts from "@/components/RelatedProducts"; 
 import ProductActions from "./ProductActions";
 import ReviewSection from "./ReviewSection"; // New component below
-import { Star } from "lucide-react";
+import { Star, Truck, RotateCcw, ShieldCheck } from "lucide-react";
 
 async function getProduct(slug) {
   const res = await pool.query(
@@ -77,7 +77,50 @@ export default async function ProductPage({ params }) {
                 </p>
               </section>
 
-              {/* Keep other sections... */}
+              <section className="pt-12 mt-12 border-t border-black/5">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+                  
+                  {/* COLOMBO SHIPPING */}
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-3 text-black">
+                      <Truck size={18} strokeWidth={1.5} />
+                      <h3 className="text-[11px] font-bold uppercase tracking-[0.2em]">Local Delivery</h3>
+                    </div>
+                    <div className="space-y-1 pl-[30px]"> {/* Aligned under text, not icon */}
+                      <p className="text-[13px] text-black/90 font-medium">Colombo & Suburbs</p>
+                      <p className="text-[12px] text-black/50">1 — 3 Business Days</p>
+                    </div>
+                  </div>
+
+                  {/* ISLANDWIDE SHIPPING */}
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-3 text-black">
+                      <ShieldCheck size={18} strokeWidth={1.5} />
+                      <h3 className="text-[11px] font-bold uppercase tracking-[0.2em]">Islandwide</h3>
+                    </div>
+                    <div className="space-y-1 pl-[30px]">
+                      <p className="text-[13px] text-black/90 font-medium">All Other Districts</p>
+                      <p className="text-[12px] text-black/50">3 — 5 Business Days</p>
+                    </div>
+                  </div>
+
+                  {/* RETURNS */}
+                  <div className="flex flex-col gap-3">
+                    <div className="flex items-center gap-3 text-[#966B4E]">
+                      <RotateCcw size={18} strokeWidth={1.5} />
+                      <h3 className="text-[11px] font-bold uppercase tracking-[0.2em]">Our Promise</h3>
+                    </div>
+                    <div className="space-y-1 pl-[30px]">
+                      <p className="text-[13px] text-black/90 font-medium">7-Day Easy Returns</p>
+                      <p className="text-[12px] text-black/40 italic leading-relaxed">
+                        Full protection for manufacturing defects.
+                      </p>
+                    </div>
+                  </div>
+
+                </div>
+              </section>
+
               <ReviewSection productId={product.id} />
             </div>
           </div>
