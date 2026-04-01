@@ -15,8 +15,8 @@ export default function ExploreSection() {
     <section className="mt-24 mb-20">
       <div className="max-w-[1400px] mx-auto px-6">
         {/* Header Section */}
-        <div className="mb-12">
-          <h2 className="font-cinzel text-3xl font-bold tracking-tight text-black">
+        <div className="mb-12 ">
+          <h2 className="font-cinzel text-center text-3xl font-bold tracking-tight text-black">
             Shop by Category
           </h2>
         </div>
