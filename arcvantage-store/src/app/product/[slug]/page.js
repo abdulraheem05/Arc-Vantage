@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import RelatedProducts from "@/components/RelatedProducts"; 
 import ProductActions from "./ProductActions";
 import ReviewSection from "./ReviewSection"; // New component below
+import { getProductReviews } from "./ReviewActions";
 import { Star, Truck, RotateCcw, ShieldCheck } from "lucide-react";
 
 async function getProduct(slug) {
@@ -18,6 +19,8 @@ async function getProduct(slug) {
 export default async function ProductPage({ params }) {
   const { slug } = await params;
   const product = await getProduct(slug);
+
+  const reviews = await getProductReviews(product.id);
 
   if (!product) notFound();
 
@@ -121,7 +124,11 @@ export default async function ProductPage({ params }) {
                 </div>
               </section>
 
-              <ReviewSection productId={product.id} />
+              <ReviewSection 
+                productId={product.id} 
+                initialReviews={reviews} 
+                userId={session?.user?.id} // You need to pass the actual logged-in user ID here
+              />
             </div>
           </div>
         </div>

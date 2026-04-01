@@ -18,6 +18,8 @@ export default function ProductActions({ product }) {
     router.push("/checkout");
   }
 
+  
+
   return (
     <div className="space-y-8">
       {/* Quantity Selector */}
