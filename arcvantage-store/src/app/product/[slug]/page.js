@@ -133,6 +133,8 @@ export default async function ProductPage({ params }) {
           initialReviews={reviews} 
           userId={session?.user?.id}
         />
+
+        <RelatedProducts currentId={product.id} />
       </main>
     </div>
   );

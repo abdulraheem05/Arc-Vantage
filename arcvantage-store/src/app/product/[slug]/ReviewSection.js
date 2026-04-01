@@ -32,7 +32,7 @@ export default function ReviewSection({ productId, userId, initialReviews = [] }
       
       {/* HEADER SECTION */}
       <div className="text-center mb-16">
-        <h3 className="font-display text-[20px] font-bold uppercase tracking-[0.2em] text-black mb-4">
+        <h3 className="font-display text-[20px] font-bold uppercase tracking-[0.1em] text-black mb-4">
           Customer Reviews
         </h3>
         {!isAdding && (
@@ -93,7 +93,7 @@ export default function ReviewSection({ productId, userId, initialReviews = [] }
           initialReviews.map((rev) => (
             <div 
               key={rev.id} 
-              className="w-full max-w-[400px] bg-white border border-black/5 rounded-[32px] p-8 flex flex-col items-center text-center shadow-sm"
+              className="w-full max-w-[400px] bg-white border border-black/5 rounded-[32px] p-8 flex flex-col items-center text-center shadow-lg"
             >
               <div className="flex text-[#FFB800] mb-4 gap-1">
                 {"★".repeat(rev.rating)}{"☆".repeat(5 - rev.rating)}
