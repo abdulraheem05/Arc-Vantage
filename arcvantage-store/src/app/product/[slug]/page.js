@@ -1,4 +1,6 @@
 // app/product/[slug]/page.js
+import { getServerSession } from "next-auth"; // Add this
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { pool } from "@/lib/db";
 import { notFound } from "next/navigation";
 import RelatedProducts from "@/components/RelatedProducts"; 
@@ -17,11 +19,12 @@ async function getProduct(slug) {
 
 // app/product/[slug]/page.js
 export default async function ProductPage({ params }) {
+  const session = await getServerSession(authOptions);
   const { slug } = await params;
   const product = await getProduct(slug);
-
   const reviews = await getProductReviews(product.id);
 
+  
   if (!product) notFound();
 
   return (
@@ -120,18 +123,16 @@ export default async function ProductPage({ params }) {
                       </p>
                     </div>
                   </div>
-
                 </div>
-              </section>
-
-              <ReviewSection 
-                productId={product.id} 
-                initialReviews={reviews} 
-                userId={session?.user?.id} // You need to pass the actual logged-in user ID here
-              />
-            </div>
-          </div>
+              </section>           
+            </div>           
+          </div>          
         </div>
+         <ReviewSection 
+          productId={product.id} 
+          initialReviews={reviews} 
+          userId={session?.user?.id}
+        />
       </main>
     </div>
   );
