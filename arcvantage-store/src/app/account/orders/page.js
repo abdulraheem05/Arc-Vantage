@@ -57,7 +57,7 @@ export default function OrdersPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 key={order.id} 
-                className="bg-white rounded-[32px] overflow-hidden border border-black/5 shadow-sm hover:shadow-md transition-all"
+                className="bg-white rounded-[32px] overflow-hidden border border-black/5 shadow-lg hover:shadow-xl transition-all"
               >
                 {/* Order Meta Header - Increased Text Sizes */}
                 <div className="bg-black/[0.02] p-10 border-b border-black/5 flex flex-wrap justify-between items-center gap-8">

@@ -70,29 +70,75 @@ export async function POST(req) {
         from: `"Arcvantage" <${process.env.EMAIL_USER}>`,
         to: session.user.email,
         subject: `Order Confirmation from ArcVantage`,
-        html: `<div style="font-family: 'Helvetica', Arial, sans-serif; max-width: 500px; color: #000; line-height: 1.6;">
-                      <h1 style="font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; border-bottom: 1px solid #eee; padding-bottom: 20px;">
-                        ArcVantage
-                      </h1>
-                      
-                      <p style="margin-top: 30px;">Thank you for your purchase.</p>
-                      
-                      <p>We have received your order and are currently preparing it for shipment. You will receive a notification as soon as your items are dispatched.</p>
+        html: `
+            <div style="background-color: #FDFDFD; padding: 40px 20px; font-family: 'Poppins', Helvetica, Arial, sans-serif;">
+              <div style="max-width: 600px; margin: 0 auto; background: #ffffff; border: 1px solid #f0f0f0; border-radius: 24px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.02);">
+                
+                <div style="background: #000000; padding: 40px; text-align: center;">
+                  <h1 style="color: #ffffff; font-family: 'Cinzel', serif; font-size: 22px; letter-spacing: 0.2em; text-transform: uppercase; margin: 0;">
+                    ArcVantage
+                  </h1>
+                  <p style="color: rgba(255,255,255,0.5); font-size: 10px; text-transform: uppercase; letter-spacing: 0.2em; margin-top: 10px;">
+                    Luxury Kitchenware
+                  </p>
+                </div>
 
-                      <div style="margin: 30px 0; padding: 20px; border: 1px solid #f0f0f0; border-radius: 8px;">
-                        <p style="margin: 0; font-size: 12px; color: #999; text-transform: uppercase; letter-spacing: 0.1em;">Amount Paid</p>
-                        <p style="margin: 5px 0 0 0; font-size: 20px; color: #966B4E;">Rs. ${Number(total).toLocaleString()}</p>
-                      </div>
+                <div style="padding: 40px;">
+                  <h2 style="font-size: 18px; font-weight: 600; color: #000; margin-bottom: 10px;">Thank you for your purchase.</h2>
+                  <p style="color: #666; font-size: 14px; line-height: 1.6;">We've received your order and are preparing it for shipment. Below is your official order summary.</p>
 
-                      <p style="font-size: 13px; color: #666;">
-                        If you have any questions, simply reply to this email.
-                      </p>
+                  <table style="width: 100%; border-collapse: collapse; margin: 30px 0;">
+                    <thead>
+                      <tr style="border-bottom: 1px solid #eee;">
+                        <th style="text-align: left; padding: 10px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #999;">Item</th>
+                        <th style="text-align: center; padding: 10px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #999;">Qty</th>
+                        <th style="text-align: right; padding: 10px 0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: #999;">Price</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${cart.map(item => `
+                        <tr style="border-bottom: 1px dotted #f0f0f0;">
+                          <td style="padding: 15px 0;">
+                            <p style="margin: 0; font-size: 13px; font-weight: 600; color: #333; text-transform: uppercase;">${item.name}</p>
+                          </td>
+                          <td style="padding: 15px 0; text-align: center; font-size: 13px; color: #666;">${item.quantity}</td>
+                          <td style="padding: 15px 0; text-align: right; font-size: 13px; font-weight: 600; color: #000;">
+                            Rs. ${Number(item.price_lkr * item.quantity).toLocaleString()}
+                          </td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
 
-                      <div style="margin-top: 50px; font-size: 10px; color: #bbb; text-transform: uppercase; letter-spacing: 0.1em;">
-                        &copy; ${new Date().getFullYear()} ArcVantage Luxury Kitchenware
-                      </div>
+                  <div style="background: #F9F9F9; padding: 25px; border-radius: 16px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                      <span style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.1em;">Subtotal</span>
+                      <span style="font-size: 13px; color: #333;">Rs. ${Number(total).toLocaleString()}</span>
                     </div>
-                  `
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
+                      <span style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.1em;">Shipping</span>
+                      <span style="font-size: 11px; color: #966B4E; font-weight: 600;">FREE</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                      <span style="font-family: 'Cinzel', serif; font-size: 14px; font-weight: bold; text-transform: uppercase;">Total Paid</span>
+                      <span style="font-size: 22px; color: #966B4E; font-weight: 300;">Rs. ${Number(total).toLocaleString()}</span>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 40px; text-align: center;">
+                    <a href="${process.env.NEXTAUTH_URL}/account/orders" style="display: inline-block; background: #000; color: #fff; padding: 18px 35px; border-radius: 50px; text-decoration: none; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em;">
+                      Download PDF Receipt
+                    </a>
+                  </div>
+
+                  <p style="margin-top: 40px; font-size: 12px; color: #bbb; text-align: center; line-height: 1.6;">
+                    Questions? Reply to this email or visit our <a href="#" style="color: #966B4E; text-decoration: none;">Help Center</a>.<br>
+                    &copy; ${new Date().getFullYear()} ArcVantage. All rights reserved.
+                  </p>
+                </div>
+              </div>
+            </div>
+            `
       });
       console.log("Email Sent Successfully");
     } catch (mailErr) {

@@ -7,7 +7,7 @@ import { ShoppingBag, Heart, Minus, Plus, Loader2 } from "lucide-react";
 
 export default function ProductActions({ product }) {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [qty, setQty] = useState(1);
   
   // Wishlist states
@@ -35,8 +35,11 @@ export default function ProductActions({ product }) {
 
   // 2. Toggle Wishlist Logic
   const toggleWishlist = async () => {
-    if (!session) {
-      // Direct to login if not authenticated
+    
+    if (status === "loading") return;
+
+    // 2. Only redirect if we are SURE there is no session
+    if (status === "unauthenticated") {
       router.push("/login");
       return;
     }
