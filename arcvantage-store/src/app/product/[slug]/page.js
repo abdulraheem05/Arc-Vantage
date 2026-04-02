@@ -20,12 +20,12 @@ async function getProduct(slug) {
 // app/product/[slug]/page.js
 export default async function ProductPage({ params }) {
   const session = await getServerSession(authOptions);
-  const { slug } = await params;
+  const resolveParam = await params;  
+  const { slug } = resolveParam;
   const product = await getProduct(slug);
+  if (!product) notFound();
   const reviews = await getProductReviews(product.id);
 
-  
-  if (!product) notFound();
 
   return (
     <div className="min-h-screen bg-[#FCFCFC] pt-40 pb-20"> {/* Standardized top padding */}
