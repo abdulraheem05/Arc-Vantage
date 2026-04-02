@@ -111,22 +111,24 @@ export async function POST(req) {
                   </table>
 
                   <div style="background: #F9F9F9; padding: 25px; border-radius: 16px;">
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                      <span style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.1em;">Subtotal</span>
-                      <span style="font-size: 13px; color: #333;">Rs. ${Number(total).toLocaleString()}</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid #eee;">
-                      <span style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.1em;">Shipping</span>
-                      <span style="font-size: 11px; color: #966B4E; font-weight: 600;">FREE</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                      <span style="font-family: 'Cinzel', serif; font-size: 14px; font-weight: bold; text-transform: uppercase;">Total Paid</span>
-                      <span style="font-size: 22px; color: #966B4E; font-weight: 300;">Rs. ${Number(total).toLocaleString()}</span>
-                    </div>
+                    <table style="width: 100%; border-collapse: collapse;">
+                      <tr>
+                        <td style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; padding-bottom: 10px;">Subtotal</td>
+                        <td style="font-size: 13px; color: #333; text-align: right; padding-bottom: 10px;">Rs. ${Number(total).toLocaleString()}</td>
+                      </tr>
+                      <tr>
+                        <td style="font-size: 11px; color: #999; text-transform: uppercase; letter-spacing: 0.1em; padding-bottom: 15px; border-bottom: 1px solid #eee;">Shipping</td>
+                        <td style="font-size: 11px; color: #966B4E; font-weight: 600; text-align: right; padding-bottom: 15px; border-bottom: 1px solid #eee;">FREE</td>
+                      </tr>
+                      <tr>
+                        <td style="font-family: 'Cinzel', serif; font-size: 14px; font-weight: bold; text-transform: uppercase; padding-top: 20px;">Total Paid</td>
+                        <td style="font-size: 22px; color: #966B4E; font-weight: 300; text-align: right; padding-top: 20px;">Rs. ${Number(total).toLocaleString()}</td>
+                      </tr>
+                    </table>
                   </div>
 
                   <div style="margin-top: 40px; text-align: center;">
-                    <a href="${process.env.NEXTAUTH_URL}/account/orders" style="display: inline-block; background: #000; color: #fff; padding: 18px 35px; border-radius: 50px; text-decoration: none; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em;">
+                    <a href="${process.env.NEXTAUTH_URL}/api/orders/${orderId}/receipt" style="display: inline-block; background: #000; color: #fff; padding: 18px 35px; border-radius: 50px; text-decoration: none; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.2em;">
                       Download PDF Receipt
                     </a>
                   </div>
