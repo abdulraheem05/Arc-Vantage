@@ -39,8 +39,11 @@ export default function MiniCart() {
                     {cart.length}
                 </span>
               </div>
-              <button onClick={closeCart} className="p-2 hover:bg-black/5 rounded-full transition group">
-                <X size={20} className="hover: transition-transform hover:scale-110 duration-300" />
+              <button 
+                onClick={closeCart} 
+                className="p-2 rounded-full text-black/60 hover:bg-black/12 hover:text-black hover:scale-110 transition-all duration-200 flex items-center justify-center group"
+              >
+                <X size={20} className="transition-transform group-active:scale-95" />
               </button>
             </div>
 
@@ -64,7 +67,7 @@ export default function MiniCart() {
                             onClick={() => removeFromCart(item.id)} 
                             className="text-black/40 hover:text-red-500 transition-colors"
                         >
-                            <Trash2 size={18} />
+                            <Trash2 size={22} />
                         </button>
                       </div>
                       <p className="text-[13px] font-semibold mt-2">Rs. {Number(item.price_lkr).toLocaleString()}</p>
@@ -87,20 +90,20 @@ export default function MiniCart() {
                   <Link 
                     href="/cart" 
                     onClick={closeCart} 
-                    className="block w-full text-center py-4 bg-black text-white rounded-xl font-bold uppercase text-[11px] tracking-[0.2em] hover:opacity-90 transition shadow-lg shadow-black/10"
+                    className="block w-full text-center py-4 bg-black text-white rounded-full font-bold uppercase text-[11px] tracking-[0.2em] hover:scale-103 hover:bg-[#966B4E] transition shadow-lg shadow-black/10"
                   >
                     Checkout Now
                   </Link>
                   <Link 
                     href="/cart" 
                     onClick={closeCart} 
-                    className="block w-full text-center py-4 border border-black rounded-xl font-bold uppercase text-[11px] tracking-[0.2em] hover:bg-black hover:text-white transition"
+                    className="block w-full text-center py-4 border border-black rounded-full font-bold uppercase text-[11px] tracking-[0.2em] hover:bg-black hover:scale-105 hover:text-white transition"
                   >
                     View Cart
                   </Link>
                   <button 
                     onClick={closeCart} 
-                    className="w-full text-center py-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 hover:text-black transition"
+                    className="w-full text-center py-2 text-[12px] font-bold uppercase tracking-[0.1em] text-black/80 hover:text-[#966B4E] transition"
                   >
                     Continue Shopping
                   </button>

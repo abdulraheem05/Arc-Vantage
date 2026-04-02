@@ -1,6 +1,6 @@
 "use client";
 import { useCartStore } from "@/store/useCartStore";
-import { Minus, Plus, X, ArrowRight } from "lucide-react";
+import { Minus, Plus, X, ArrowRight, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
 export default function CartPage() {
@@ -9,10 +9,10 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center pt-20">
+      <div className="min-h-screen flex flex-col items-center justify-center">
         <ShoppingBag size={64} className="text-black/5 mb-6" />
-        <h1 className="font-cinzel text-2xl font-bold mb-4 uppercase tracking-widest">Your cart is empty</h1>
-        <Link href="/shop" className="px-8 py-4 bg-black text-white rounded-xl font-bold uppercase text-[12px] tracking-widest hover:opacity-80 transition">Continue Shopping</Link>
+        <h1 className="font-cinzel text-2xl font-bold mb-8 uppercase tracking-widest">Your cart is empty</h1>
+        <Link href="/shop" className="px-8 py-4 bg-black text-white rounded-full font-bold uppercase text-[12px] tracking-widest hover:scale-105 hover:bg-[#966B4E] transition">Continue Shopping</Link>
       </div>
     );
   }
@@ -20,14 +20,14 @@ export default function CartPage() {
   return (
     <div className="min-h-screen bg-white pt-40 pb-20">
       <main className="max-w-[1400px] mx-auto px-10">
-        <h1 className="font-cinzel text-3xl font-bold uppercase tracking-[0.2em] mb-12">Shopping Cart</h1>
+        <h1 className="font-cinzel text-3xl font-bold uppercase tracking-[0.1em] mb-12">Shopping Cart</h1>
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
           {/* Table Section */}
           <div className="lg:col-span-8">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="border-b border-black/5 text-[11px] font-bold uppercase tracking-[0.2em] text-black/40">
+                <tr className="border-b border-black/5 text-[11px] font-bold uppercase tracking-[0.1em] text-black/40">
                   <th className="pb-6">Product</th>
                   <th className="pb-6">Price</th>
                   <th className="pb-6">Quantity</th>
@@ -38,7 +38,7 @@ export default function CartPage() {
                 {cart.map((item) => (
                   <tr key={item.id} className="group">
                     <td className="py-8 flex items-center gap-6">
-                      <button onClick={() => removeFromCart(item.id)} className="text-black/20 hover:text-red-500 transition"><X size={18} /></button>
+                      <button onClick={() => removeFromCart(item.id)} className="p-2 rounded-full text-black/60 hover:bg-black/10 hover:scale-110 hover:text-black/90 transition-all duration-200 flex items-center justify-center"><X size={18} /></button>
                       <img src={item.image_url} className="w-24 h-24 bg-gray-50 rounded-2xl object-cover" />
                       <span className="font-bold text-sm uppercase tracking-wider">{item.name}</span>
                     </td>
