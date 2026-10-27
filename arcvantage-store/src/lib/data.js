@@ -6,7 +6,7 @@ export async function getProducts(sp = {}) {
   if (sp?.min) qs.set("min", sp.min);
   if (sp?.max) qs.set("max", sp.max);
 
-  const base = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  const base = process.env.NEXTAUTH_URL || "http://localhost:3000";
   const res = await fetch(`${base}/api/products?${qs.toString()}`, {
     cache: "no-store",
   });
