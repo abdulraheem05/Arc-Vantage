@@ -242,16 +242,16 @@ export default function CheckoutPage() {
                 <button
                   onClick={handlePlaceOrder}
                   disabled={isProcessing} // CRITICAL: Locks the button during the 9.9s wait
-                  className={`w-full mt-12 py-6 bg-black text-white rounded-[20px] font-bold uppercase text-[15px] tracking-[0.2em] hover:scale-105 hover:bg-[#966B4E] transition shadow-2xl flex items-center justify-center gap-3 ${
+                  className={`w-full mt-12 py-6 bg-black text-white rounded-[20px] font-bold uppercase text-[15px] tracking-[0.2em] hover:scale-101 hover:bg-[#966B4E] transition shadow-2xl flex items-center justify-center gap-3 ${
                     isProcessing ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90 shadow-black/20'
                   }`}
                 >
-                  {isProcessing ? (
-                    <Loader2 size={20} className="animate-spin" />
-                  ) : (
-                    <ShieldCheck size={20} />
-                  )}
-                  {isProcessing ? "Processing Order..." : "Place Order"}
+                  
+                {isProcessing && (
+                  <Loader2 size={20} className="animate-spin" />
+                )}
+                {isProcessing ? "Processing Order..." : "Place Order"}
+
                 </button>
               </div>
             </div>

@@ -111,11 +111,16 @@ export default function OrdersPage() {
                 </div>
 
                 {/* Footer Action */}
+                
                 <div className="px-10 py-6 bg-gray-50/50 border-t border-black/5 flex justify-end">
-                   <button className="text-[11px] font-bold uppercase tracking-[0.3em] text-black/50 hover:text-black transition-colors underline underline-offset-8 decoration-black/10 hover:decoration-black">
-                     Download Digital Invoice
-                   </button>
+                  <a
+                    href={`/api/orders/${order.id}/receipt`}
+                    className="text-[11px] font-bold uppercase tracking-[0.3em] text-black/50 hover:text-black transition-colors underline underline-offset-8 decoration-black/10 hover:decoration-black"
+                  >
+                    Download Digital Invoice
+                  </a>
                 </div>
+
               </motion.div>
             ))
           ) : (

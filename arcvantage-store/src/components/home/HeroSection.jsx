@@ -34,7 +34,7 @@ export default function HeroSection() {
         </h1>
 
         <p className="mt-6 font-sans text-lg text-gray-500 max-w-xl mx-auto">
-          Knives, spice bottles, baking items, and minimal home supplies — clean quality, fair price.
+          Knives, spice bottles, baking items, and minimal home supplies  clean quality, fair price.
         </p>
 
       <Link 

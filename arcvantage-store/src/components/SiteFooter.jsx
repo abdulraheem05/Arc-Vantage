@@ -14,7 +14,7 @@ export default function SiteFooter() {
             </div>
 
             <p className="mt-4 text-gray-500 text-sm leading-relaxed">
-              Minimal kitchenware and home supplies—clean quality, fair price.
+              Minimal kitchenware and home supplies clean quality, fair price.
             </p>
 
             <div className="mt-6 flex items-center gap-3">

@@ -42,7 +42,7 @@ export default function SuccessPage() {
           </Link>
           
           <Link 
-            href="/account" 
+            href="/account/orders" 
             className="w-full py-6 border-2 border-black/5 text-black rounded-[24px] font-bold uppercase text-[11px] tracking-[0.3em] hover:bg-black/5 transition flex items-center justify-center gap-3"
           >
             <ShoppingBag size={16} /> View My Orders
