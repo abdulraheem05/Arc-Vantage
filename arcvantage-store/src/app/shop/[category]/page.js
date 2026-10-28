@@ -5,7 +5,7 @@ import ProductGrid from "../ProductGrid";
 export default async function CategoryPage({ params, searchParams }) {
   const { category } = await params;
   const resolvedSearchParams = await searchParams;
-
+   
   const displayTitle =
     category.charAt(0).toUpperCase() + category.slice(1);
 

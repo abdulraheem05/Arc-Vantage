@@ -1,9 +1,15 @@
+
 import "./globals.css";
 import { Cinzel, Poppins } from "next/font/google";
 import Providers from "./providers";
 import Navbar from "@/components/Navbar";
 import SiteFooter from "@/components/SiteFooter";
 import MiniCart from "@/components/MiniCart";
+
+export const metadata = {
+  title: "ArcVantage | Home & Living",
+  description: "Discover premium home and kitchen essentials at ArcVantage.",
+};
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -22,10 +28,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${cinzel.variable} ${poppins.variable}`}>
       <body>
         <Providers>
-          <Navbar/>
+          <Navbar />
           <MiniCart />
           {children}
-          <SiteFooter/>
+          <SiteFooter />
         </Providers>
       </body>
     </html>
