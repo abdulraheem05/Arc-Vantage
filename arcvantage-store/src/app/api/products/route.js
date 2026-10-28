@@ -12,7 +12,7 @@ export async function GET(request) {
 
   // Use 1=1 as a base so we can safely append "AND" to everything
   let queryText = `SELECT * FROM products WHERE 1=1`; 
-  const values = [];
+  const values = [];  
 
   if (category) {
     values.push(category);

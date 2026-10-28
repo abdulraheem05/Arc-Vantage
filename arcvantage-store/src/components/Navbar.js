@@ -129,7 +129,7 @@ export default function Navbar() {
                   initial={{ width: 0, opacity: 0 }}
                   animate={{ width: 280, opacity: 1 }}
                   exit={{ width: 0, opacity: 0 }}
-                  className="absolute right-0 bg-[#F9F9F9] rounded-xl shadow-xl border border-black/5 overflow-hidden flex items-center pr-4"
+                  className="absolute right-[-90] bg-[#F9F9F9] rounded-xl shadow-xl border border-black/5 overflow-hidden flex items-center pr-4"
                 >
                   <input
                     autoFocus
@@ -162,7 +162,7 @@ export default function Navbar() {
 
             <motion.button
               onClick={() => setIsSearchOpen(!isSearchOpen)}
-              animate={{ x: isSearchOpen ? -240 : 0 }}
+              animate={{ x: isSearchOpen ? -150 : 0 }}
               className="z-10 hover:text-[#966B4E] transition-colors relative p-2"
               aria-label={isSearchOpen ? "Close search" : "Open search"}
             >
