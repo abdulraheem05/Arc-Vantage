@@ -1,9 +1,11 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
-import { User, MapPin, Phone, CreditCard, Plus, Trash2, Edit3, Save, Loader2, CheckCircle, X, MessageSquarePlus, Star, Calendar, ExternalLink } from "lucide-react";
+import { useSession, signOut } from "next-auth/react";
+import { User, MapPin, LogOut, Phone, CreditCard, Plus, Trash2, Edit3, Save, Loader2, CheckCircle, X, MessageSquarePlus, Star, Calendar, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
+
 
 export default function AccountPage() {
   const { data: session } = useSession();
@@ -79,7 +81,7 @@ export default function AccountPage() {
         {showToast && (
           <motion.div 
             initial={{ y: -100, opacity: 0 }} animate={{ y: 20, opacity: 1 }} exit={{ y: -100, opacity: 0 }}
-            className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-black text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-4 min-w-[320px] border border-white/10"
+            className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-black text-white px-6 py-4 rounded-2xl flex items-center gap-4 min-w-[320px] border border-white/10"
           >
             <div className="bg-green-500 p-1.5 rounded-full"><CheckCircle size={18} /></div>
             <div className="flex-1">
@@ -95,9 +97,23 @@ export default function AccountPage() {
         {/* HEADER DASHBOARD */}
         <div className="bg-white rounded-[32px] p-10 mb-8 shadow-sm border border-black/5">
           <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="w-28 h-28 bg-black text-white rounded-full flex items-center justify-center font-cinzel text-4xl font-bold shadow-xl border-4 border-white">
-              {formData.name?.charAt(0) || "A"}
+            
+            <div className="w-28 h-28 bg-black text-white rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center font-cinzel text-4xl font-bold shadow-xl ">
+              {session?.user?.image ? (
+                <Image
+                  src={session.user.image}
+                  alt={formData.name || "Profile picture"}
+                  width={256}
+                  height={256}
+                  unoptimized
+                  referrerPolicy="no-referrer"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                formData.name?.charAt(0)?.toUpperCase() || "A"
+              )}
             </div>
+
 
             <div className="flex-1 w-full space-y-6">
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -111,10 +127,10 @@ export default function AccountPage() {
                 <button 
                   onClick={handleAction}
                   disabled={saving}
-                  className={`px-10 py-5 rounded-full text-[12px] font-bold uppercase tracking-[0.1em] transition-all duration-300 flex items-center gap-3 shadow-xl ${
+                  className={`px-10 py-5 rounded-full text-[12px] font-bold uppercase tracking-[0.1em] transition-all duration-300 flex items-center gap-3  ${
                     isEditing 
-                      ? 'bg-green-600 text-white hover:bg-green-700 shadow-green-200' 
-                      : 'bg-black text-white hover:bg-gray-800 shadow-black/20'
+                      ? 'bg-green-600 text-white hover:bg-green-700' 
+                      : 'bg-black text-white hover:bg-gray-800'
                   }`}
                 >
                   {saving ? (
@@ -124,6 +140,14 @@ export default function AccountPage() {
                   ) : (
                     <><Edit3 size={16} /> Edit Profile</>
                   )}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => signOut({ callbackUrl: "/login" })}
+                  className="px-7 py-4 rounded-full border border-red-200 bg-white text-red-600 text-[12px] font-bold uppercase tracking-[0.1em] flex items-center gap-3 transition-all duration-300 hover:bg-red-50 hover:border-red-300 active:scale-95"
+                >
+                  <LogOut size={16} />
+                  Log Out
                 </button>
               </div>
 
@@ -151,7 +175,7 @@ export default function AccountPage() {
           {/* CONTACT INFO */}
           <div className="bg-white rounded-[28px] p-8 shadow-sm border border-black/5">
             <div className="flex items-center gap-3 mb-10 pb-4 border-b border-black/5">
-              <div className="p-2.5 bg-black text-white rounded-xl shadow-lg shadow-black/20"><User size={18} /></div>
+              <div className="p-2.5 bg-black text-white rounded-xl"><User size={18} /></div>
               <h2 className="text-[14px] font-bold uppercase tracking-[0.1em]">Contact Information</h2>
             </div>
             
@@ -184,7 +208,7 @@ export default function AccountPage() {
           {/* DELIVERY INFO */}
           <div className="bg-white rounded-[28px] p-8 shadow-sm border border-black/5">
             <div className="flex items-center gap-3 mb-10 pb-4 border-b border-black/5">
-              <div className="p-2.5 bg-black text-white rounded-xl shadow-lg shadow-black/20"><MapPin size={18} /></div>
+              <div className="p-2.5 bg-black text-white rounded-xl"><MapPin size={18} /></div>
               <h2 className="text-[14px] font-bold uppercase tracking-[0.1em]">Delivery Details</h2>
             </div>
             <div className="space-y-8">
